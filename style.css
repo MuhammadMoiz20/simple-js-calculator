@@ -27,3 +27,16 @@ body {
   cursor: pointer;
 }
 .keys button:hover { background: #666; }
+
+#display {
+  background: #111;
+  color: #0f0;
+  font-family: monospace;
+  font-size: 28px;
+  padding: 10px;
+  text-align: right;
+  margin-bottom: 8px;
+  border-radius: 4px;
+  min-height: 36px;
+  overflow: hidden;
+}
