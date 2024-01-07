@@ -1,0 +1,29 @@
+body {
+  font-family: sans-serif;
+  background: #222;
+  color: #eee;
+  display: flex;
+  justify-content: center;
+  padding-top: 40px;
+}
+.calc {
+  width: 240px;
+  background: #333;
+  padding: 12px;
+  border-radius: 8px;
+}
+.keys {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+}
+.keys button {
+  padding: 14px;
+  font-size: 18px;
+  border: none;
+  background: #555;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.keys button:hover { background: #666; }
