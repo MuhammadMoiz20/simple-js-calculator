@@ -40,3 +40,6 @@ body {
   min-height: 36px;
   overflow: hidden;
 }
+
+.keys .util { background: #844; }
+.keys .util:hover { background: #a55; }

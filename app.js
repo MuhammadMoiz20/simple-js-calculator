@@ -6,7 +6,6 @@ var OPS = ['+', '-', '*', '/'];
 function compute(expr) {
   var tokens = expr.match(/(\d+\.?\d*|[+\-*/])/g);
   if (!tokens) return 0;
-  // first pass: * and /
   var pass1 = [tokens[0]];
   for (var i = 1; i < tokens.length; i += 2) {
     var op = tokens[i];
@@ -20,7 +19,6 @@ function compute(expr) {
       pass1.push(n);
     }
   }
-  // second pass: + and -
   var val = parseFloat(pass1[0]);
   for (var j = 1; j < pass1.length; j += 2) {
     var op2 = pass1[j];
@@ -31,12 +29,19 @@ function compute(expr) {
   return val;
 }
 
+function render() {
+  display.textContent = current || '0';
+}
+
 document.querySelector('.keys').addEventListener('click', function (e) {
   if (e.target.tagName !== 'BUTTON') return;
   var k = e.target.textContent;
+  if (k === 'C') { current = ''; render(); return; }
+  if (k === 'CE') { current = current.replace(/\d+\.?\d*$/, ''); render(); return; }
+  if (k === '←') { current = current.slice(0, -1); render(); return; }
   if (k === '=') {
     current = String(compute(current));
-    display.textContent = current;
+    render();
     return;
   }
   if (OPS.indexOf(k) !== -1 && OPS.indexOf(current.slice(-1)) !== -1) {
@@ -44,5 +49,5 @@ document.querySelector('.keys').addEventListener('click', function (e) {
   } else {
     current += k;
   }
-  display.textContent = current || '0';
+  render();
 });
