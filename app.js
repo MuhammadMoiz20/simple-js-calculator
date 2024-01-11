@@ -51,3 +51,18 @@ document.querySelector('.keys').addEventListener('click', function (e) {
   }
   render();
 });
+
+document.addEventListener('keydown', function (e) {
+  var k = e.key;
+  if (/^[0-9.]$/.test(k)) { current += k; render(); }
+  else if (['+', '-', '*', '/'].indexOf(k) !== -1) {
+    if (OPS.indexOf(current.slice(-1)) !== -1) current = current.slice(0, -1);
+    current += k; render();
+  }
+  else if (k === 'Enter' || k === '=') {
+    current = String(compute(current));
+    render();
+  }
+  else if (k === 'Backspace') { current = current.slice(0, -1); render(); }
+  else if (k === 'Escape') { current = ''; render(); }
+});
