@@ -44,6 +44,11 @@ document.querySelector('.keys').addEventListener('click', function (e) {
     render();
     return;
   }
+  if (k === '.') {
+    var seg2 = current.split(/[+\-*/]/).pop();
+    if (seg2.indexOf('.') !== -1) { return; }
+    current += k; render(); return;
+  }
   if (OPS.indexOf(k) !== -1 && OPS.indexOf(current.slice(-1)) !== -1) {
     current = current.slice(0, -1) + k;
   } else {
@@ -54,7 +59,14 @@ document.querySelector('.keys').addEventListener('click', function (e) {
 
 document.addEventListener('keydown', function (e) {
   var k = e.key;
-  if (/^[0-9.]$/.test(k)) { current += k; render(); }
+  if (/^[0-9.]$/.test(k)) {
+    if (k === '.') {
+      // dont allow two dots in current number
+      var seg = current.split(/[+\-*/]/).pop();
+      if (seg.indexOf('.') !== -1) return;
+    }
+    current += k; render();
+  }
   else if (['+', '-', '*', '/'].indexOf(k) !== -1) {
     if (OPS.indexOf(current.slice(-1)) !== -1) current = current.slice(0, -1);
     current += k; render();
