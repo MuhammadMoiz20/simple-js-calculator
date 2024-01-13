@@ -40,7 +40,9 @@ document.querySelector('.keys').addEventListener('click', function (e) {
   if (k === 'CE') { current = current.replace(/\d+\.?\d*$/, ''); render(); return; }
   if (k === '←') { current = current.slice(0, -1); render(); return; }
   if (k === '=') {
-    current = String(compute(current));
+    var result = compute(current);
+    pushHistory(current + ' = ' + result);
+    current = String(result);
     render();
     return;
   }
@@ -72,9 +74,24 @@ document.addEventListener('keydown', function (e) {
     current += k; render();
   }
   else if (k === 'Enter' || k === '=') {
-    current = String(compute(current));
+    var r = compute(current);
+    pushHistory(current + ' = ' + r);
+    current = String(r);
     render();
   }
   else if (k === 'Backspace') { current = current.slice(0, -1); render(); }
   else if (k === 'Escape') { current = ''; render(); }
 });
+
+var history = [];
+function pushHistory(line) {
+  history.unshift(line);
+  if (history.length > 5) history.pop();
+  var ul = document.getElementById('history');
+  ul.innerHTML = '';
+  history.forEach(function (h) {
+    var li = document.createElement('li');
+    li.textContent = h;
+    ul.appendChild(li);
+  });
+}

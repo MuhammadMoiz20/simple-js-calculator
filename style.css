@@ -43,3 +43,7 @@ body {
 
 .keys .util { background: #844; }
 .keys .util:hover { background: #a55; }
+
+.calc h3 { font-size: 12px; color: #aaa; margin: 12px 0 4px; }
+#history { list-style: none; padding: 0; margin: 0; font-family: monospace; font-size: 12px; color: #bbb; }
+#history li { padding: 2px 0; border-bottom: 1px solid #444; }
