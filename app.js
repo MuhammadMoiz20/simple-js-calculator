@@ -13,7 +13,11 @@ function compute(expr) {
     if (op === '*' || op === '/') {
       var prev = parseFloat(pass1.pop());
       var cur = parseFloat(n);
-      pass1.push(String(op === '*' ? prev * cur : prev / cur));
+      if (op === '/' && cur === 0) {
+        pass1.push('NaN');
+      } else {
+        pass1.push(String(op === '*' ? prev * cur : prev / cur));
+      }
     } else {
       pass1.push(op);
       pass1.push(n);
@@ -30,7 +34,11 @@ function compute(expr) {
 }
 
 function render() {
-  display.textContent = current || '0';
+  if (current === 'NaN' || current === 'Infinity') {
+    display.textContent = 'err';
+  } else {
+    display.textContent = current || '0';
+  }
 }
 
 document.querySelector('.keys').addEventListener('click', function (e) {
